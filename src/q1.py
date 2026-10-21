@@ -3,6 +3,10 @@ import matplotlib.pyplot as plt
 from sklearn.datasets import fetch_olivetti_faces
 from common import flatten,mask, loader
 from sklearn.tree import DecisionTreeClassifier,plot_tree
+import os
+
+#making log file to store results
+os.makedirs("logs", exist_ok=True)
 
 id_training, id_validation, id_testing = loader()
 facesData=fetch_olivetti_faces()
@@ -142,6 +146,27 @@ for B in [1,5,10,25,50,100,200]:
            "oob_acc":accuracy_oob, "oob_coverage": oob_coverage,
            "avg_pairwise_dis":avg_pairwise_dis, "mean_margin": mean_margin}
     bag_results.append(rec)
+
+#time to plot the oobAcc, avg_pairwise_dis and mean margin against B :
+#extract each column from bag results
+B_val_extracted = [r["B"] for r in bag_results]
+oob_acc_extracted = [r["oob_acc"] for r in bag_results]
+avg_pw_dis_extracted = [r["avg_pairwise_dis"] for r in bag_results]
+mean_margin_extracted = [r["mean_margin"] for r in bag_results]
+
+fig, axes = plt.subplots(1, 3, figsize=(12, 3.5))
+axes[0].plot(B_val_extracted, oob_acc_extracted, marker="o")
+axes[0].set_title("OOB accuracy")
+axes[1].plot(B_val_extracted, avg_pw_dis_extracted, marker="o")
+axes[1].set_title("Avg pairwise disagreement")
+axes[2].plot(B_val_extracted, mean_margin_extracted, marker="o")
+axes[2].set_title("Mean vote margin")
+for ax in axes:
+    ax.set_xlabel("B (number of trees)")
+    ax.set_xscale("log")     
+plt.tight_layout()                      
+plt.savefig("q1c_curves.pdf")
+plt.show()
 
 for result in bag_results :
     print(result)
