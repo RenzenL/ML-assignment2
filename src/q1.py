@@ -43,16 +43,16 @@ for depth in [2,4,8,16,None] :
         mean_samples_per_leaf = np.mean(counts)
         frac_single_leaf= np.mean(counts == 1)
         val_acc=clf.score(validation,y_validation)
-        test_acc=clf.score(testing, y_testing)
 
         results={"depth":depth,"leaf":leaf,
-                 "val_acc":clf.score(validation,y_validation),
+                 "val_acc":val_acc,
                  "train_acc":clf.score(training,y_training),
                  "leaf_count":clf.get_n_leaves(),
                  "mean_samples_per_leaf": mean_samples_per_leaf,
                  "frac_single_leaf": frac_single_leaf
                  }
         results_list.append(results)
+        #shallower depth first and smaller leaf size first
         if val_acc>best_val_acc:
             best_val_acc=val_acc
             frozen_setting=(depth,leaf)
@@ -62,3 +62,86 @@ for depth in [2,4,8,16,None] :
               results_list[-1]["train_acc"],
               results_list[-1]["leaf_count"]
               )
+#q1 (b & c)
+frozen_depth,frozen_leaf=frozen_setting
+N=len(training)
+bag_results=[]
+for B in [1,5,10,25,50,100,200]:
+    oob_idx_trees=[]
+    rng=np.random.default_rng(26007)
+    trees=[]
+    distinct_counts=[]
+    boot_idx_tree=[]
+    #training B separate trees:
+    for b in range(B):
+        oob_idx=np.ones(N, dtype=bool)
+        boot_idx=rng.integers(0, N, size=N)
+        oob_idx[boot_idx]=0
+        oob_idx_trees.append(oob_idx)
+        boot_idx_tree.append(boot_idx)
+        distinct_counts.append(len(np.unique(boot_idx)))
+        X_boot=training[boot_idx]
+        y_boot=y_training[boot_idx]
+        tree=DecisionTreeClassifier(max_depth=frozen_depth,
+                                min_samples_leaf=frozen_leaf,
+                                random_state=b)
+        tree.fit(X_boot,y_boot)
+        trees.append(tree)
+    #calculate parameters for ensemble with B trees
+    tree_pred_train=np.array([t.predict(training) for t in trees])
+    tree_pred_val=np.array([t.predict(validation) for t in trees])
+    tree_pred_test=np.array([t.predict(testing) for t in trees])
+    #votes shape(240,40) :
+    votes_train = np.array([np.bincount(tree_pred_train[:, j], minlength=40)
+                  for j in range(tree_pred_train.shape[1])])
+    votes_val = np.array([np.bincount(tree_pred_val[:, j], minlength=40)
+                      for j in range(tree_pred_val.shape[1])])
+    votes_test = np.array([np.bincount(tree_pred_test[:, j], minlength=40)
+                      for j in range(tree_pred_test.shape[1])])
+    
+    
+    oob_votes = np.zeros((N, 40), int)            # one row per training image
+    for b in range(B):
+        oob_pos = np.where(oob_idx_trees[b])[0]   # positions tree b never saw
+        if len(oob_pos) == 0:
+            continue
+        p = trees[b].predict(training[oob_pos])   # predict only, no fitting
+        oob_votes[oob_pos, p] += 1
+    covered = oob_votes.sum(1) > 0                # images with at least one OOB vote        
+        
+    #winners_shape(240,)  contains the winning idenitiy per image :
+    winners_train = votes_train.argmax(axis=1)
+    winners_val = votes_val.argmax(axis=1)
+    winners_test = votes_test.argmax(axis=1)
+    
+
+    accuracy_train=(winners_train==y_training).mean()
+    accuracy_val=(winners_val==y_validation).mean()
+    accuracy_testing=(winners_test==y_testing).mean()
+    accuracy_oob = (oob_votes[covered].argmax(1) == y_training[covered]).mean()
+    oob_coverage = covered.mean()
+    
+    mean_distinct_count=np.mean(distinct_counts)
+
+    avg_pairwise_dis=0
+    #calculate the disagreement :
+    for a in range  (0,len(trees)):
+        for b in range (a+1,len(trees)):
+            avg_pairwise_dis+=(tree_pred_val[a]!=tree_pred_val[b]).mean()
+    avg_pairwise_dis=avg_pairwise_dis/(B * (B - 1) / 2) if B > 1 else np.nan
+
+    #mean vote margin : sort the votes in val set and diff btwn 1st and 2nd
+    sorted_votes=np.sort(votes_val,axis=1)
+    top1=sorted_votes[:,-1]
+    top2=sorted_votes[:,-2]
+    margin = (top1-top2)/B
+    mean_margin=margin.mean()
+
+    rec = {"B": B, "train_acc": accuracy_train,"validation_acc": accuracy_val,
+           "testing_acc":accuracy_testing, "mean_distinct": mean_distinct_count,
+           "oob_acc":accuracy_oob, "oob_coverage": oob_coverage,
+           "avg_pairwise_dis":avg_pairwise_dis, "mean_margin": mean_margin}
+    bag_results.append(rec)
+
+for result in bag_results :
+    print(result)

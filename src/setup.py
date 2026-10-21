@@ -7,9 +7,8 @@ facesData = fetch_olivetti_faces()
 print(facesData.keys())
 
 seed_rng = np.random.default_rng(26007)
-print(facesData['images'].shape)
 #req list
-#we store indexes in these
+#we store indexes of images in these
 training=[]
 validation=[]
 testing=[]
