@@ -1,0 +1,84 @@
+{
+  "table": {
+    "tree": {
+      "clean_acc": 0.625,
+      "masked_acc": 0.625,
+      "clean_conf": 0.9642857142857142,
+      "masked_conf": 0.9642857142857142
+    },
+    "bagging": {
+      "clean_acc": 0.8125,
+      "masked_acc": 0.6875,
+      "clean_conf": 0.404,
+      "masked_conf": 0.24050000000000002
+    },
+    "boosting": {
+      "clean_acc": 0.35,
+      "masked_acc": 0.2875,
+      "clean_conf": 0.12764388978053193,
+      "masked_conf": 0.1243090971616982
+    }
+  },
+  "mean_exposure": {
+    "bagging": 0.6950000000000001,
+    "boosting": 0.19290269358005552
+  },
+  "face": {
+    "test_index": 3,
+    "selection_rule": "bagging stays correct, boosting breaks",
+    "true": 1,
+    "bagging": {
+      "clean_pred": 1,
+      "masked_pred": 1,
+      "true_votes_clean": 68,
+      "true_votes_masked": 30,
+      "winner_share_clean": 0.68,
+      "winner_share_masked": 0.3,
+      "tree_disagreement_clean": 0.5361616161616162,
+      "tree_disagreement_masked": 0.8567676767676767,
+      "trees_changing_vote": 63,
+      "trees_using_block_on_clean": 0.82
+    },
+    "boosting": {
+      "clean_pred": 1,
+      "masked_pred": 12,
+      "q_true_clean": 0.1372514934645736,
+      "q_true_masked": 0.09577418843502515,
+      "winner_q_clean": 0.1372514934645736,
+      "winner_q_masked": 0.12311821351112262,
+      "learners_changing_vote": 6,
+      "alpha_mass_changing": 0.12270141822729382,
+      "alpha_mass_using_block_on_clean": 0.17001188603889705,
+      "mean_true_identity_weight_changing": 0.04081454376816473,
+      "mean_true_identity_weight_others": 0.025206408964658464,
+      "uniform_identity_weight": 0.025,
+      "top_changing_learners": [
+        {
+          "round": 14,
+          "alpha": 3.332648307250742,
+          "top10_weight_mass": 0.2914620477765546
+        },
+        {
+          "round": 17,
+          "alpha": 3.142653736287825,
+          "top10_weight_mass": 0.25408039895714873
+        },
+        {
+          "round": 11,
+          "alpha": 3.075312962262983,
+          "top10_weight_mass": 0.20314288738187192
+        },
+        {
+          "round": 25,
+          "alpha": 2.987602927665222,
+          "top10_weight_mass": 0.2507114519987223
+        },
+        {
+          "round": 32,
+          "alpha": 2.9206475927251487,
+          "top10_weight_mass": 0.23286993745258314
+        }
+      ]
+    }
+  }
+}

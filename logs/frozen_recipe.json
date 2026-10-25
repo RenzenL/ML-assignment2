@@ -1,0 +1,13 @@
+{
+  "tree": {
+    "max_depth": null,
+    "min_samples_leaf": 4,
+    "random_state": 0
+  },
+  "bagging": {
+    "B": 100,
+    "bootstrap_seed": 26007,
+    "tree_random_state": "b (tree index)"
+  },
+  "notes": "ties in grid: first in grid order; vote ties: lowest identity number"
+}

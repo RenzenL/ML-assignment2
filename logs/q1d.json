@@ -1,0 +1,90 @@
+{
+  "table": {
+    "tree_clean": {
+      "acc": 0.625,
+      "conf": 0.9642857142857142
+    },
+    "tree_masked": {
+      "acc": 0.625,
+      "conf": 0.9642857142857142
+    },
+    "bag_clean": {
+      "acc": 0.8125,
+      "conf": 0.404
+    },
+    "bag_masked": {
+      "acc": 0.6875,
+      "conf": 0.24050000000000002
+    }
+  },
+  "cases": {
+    "corrected": [
+      {
+        "test_index": 1,
+        "true": 0,
+        "tree_pred": 17,
+        "tree_conf": 0.8571428571428571,
+        "bag_pred": 0,
+        "votes_top5": {
+          "0": 21,
+          "15": 16,
+          "7": 13,
+          "26": 13,
+          "17": 6
+        },
+        "votes_true_class": 21,
+        "votes_tree_pred": 6
+      },
+      {
+        "test_index": 9,
+        "true": 4,
+        "tree_pred": 22,
+        "tree_conf": 1.0,
+        "bag_pred": 4,
+        "votes_top5": {
+          "4": 33,
+          "37": 25,
+          "22": 8,
+          "8": 6,
+          "25": 5
+        },
+        "votes_true_class": 33,
+        "votes_tree_pred": 8
+      }
+    ],
+    "both_wrong": [
+      {
+        "test_index": 6,
+        "true": 3,
+        "tree_pred": 17,
+        "tree_conf": 0.8571428571428571,
+        "bag_pred": 4,
+        "votes_top5": {
+          "4": 15,
+          "3": 14,
+          "1": 9,
+          "35": 8,
+          "2": 7
+        },
+        "votes_true_class": 14,
+        "votes_tree_pred": 0
+      },
+      {
+        "test_index": 8,
+        "true": 4,
+        "tree_pred": 16,
+        "tree_conf": 0.8571428571428571,
+        "bag_pred": 22,
+        "votes_top5": {
+          "22": 28,
+          "8": 15,
+          "4": 14,
+          "17": 9,
+          "34": 6
+        },
+        "votes_true_class": 14,
+        "votes_tree_pred": 0
+      }
+    ]
+  }
+}

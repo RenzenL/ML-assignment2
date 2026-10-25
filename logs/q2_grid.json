@@ -1,0 +1,130 @@
+[
+  {
+    "depth": 1,
+    "rounds": 10,
+    "kept": 10,
+    "train_acc": 0.05,
+    "val_acc": 0.0375,
+    "n_events": 0
+  },
+  {
+    "depth": 1,
+    "rounds": 25,
+    "kept": 25,
+    "train_acc": 0.09166666666666666,
+    "val_acc": 0.1,
+    "n_events": 0
+  },
+  {
+    "depth": 1,
+    "rounds": 50,
+    "kept": 50,
+    "train_acc": 0.16666666666666666,
+    "val_acc": 0.15,
+    "n_events": 0
+  },
+  {
+    "depth": 1,
+    "rounds": 100,
+    "kept": 100,
+    "train_acc": 0.15,
+    "val_acc": 0.15,
+    "n_events": 0
+  },
+  {
+    "depth": 2,
+    "rounds": 10,
+    "kept": 10,
+    "train_acc": 0.13333333333333333,
+    "val_acc": 0.1,
+    "n_events": 0
+  },
+  {
+    "depth": 2,
+    "rounds": 25,
+    "kept": 25,
+    "train_acc": 0.1875,
+    "val_acc": 0.1375,
+    "n_events": 0
+  },
+  {
+    "depth": 2,
+    "rounds": 50,
+    "kept": 50,
+    "train_acc": 0.37083333333333335,
+    "val_acc": 0.15,
+    "n_events": 0
+  },
+  {
+    "depth": 2,
+    "rounds": 100,
+    "kept": 100,
+    "train_acc": 0.2708333333333333,
+    "val_acc": 0.15,
+    "n_events": 0
+  },
+  {
+    "depth": 3,
+    "rounds": 10,
+    "kept": 10,
+    "train_acc": 0.3,
+    "val_acc": 0.175,
+    "n_events": 0
+  },
+  {
+    "depth": 3,
+    "rounds": 25,
+    "kept": 25,
+    "train_acc": 0.4125,
+    "val_acc": 0.1875,
+    "n_events": 0
+  },
+  {
+    "depth": 3,
+    "rounds": 50,
+    "kept": 50,
+    "train_acc": 0.43333333333333335,
+    "val_acc": 0.2125,
+    "n_events": 0
+  },
+  {
+    "depth": 3,
+    "rounds": 100,
+    "kept": 100,
+    "train_acc": 0.5333333333333333,
+    "val_acc": 0.175,
+    "n_events": 0
+  },
+  {
+    "depth": 4,
+    "rounds": 10,
+    "kept": 10,
+    "train_acc": 0.19166666666666668,
+    "val_acc": 0.1375,
+    "n_events": 0
+  },
+  {
+    "depth": 4,
+    "rounds": 25,
+    "kept": 25,
+    "train_acc": 0.7583333333333333,
+    "val_acc": 0.3875,
+    "n_events": 0
+  },
+  {
+    "depth": 4,
+    "rounds": 50,
+    "kept": 50,
+    "train_acc": 0.9666666666666667,
+    "val_acc": 0.4625,
+    "n_events": 0
+  },
+  {
+    "depth": 4,
+    "rounds": 100,
+    "kept": 100,
+    "train_acc": 0.8625,
+    "val_acc": 0.3625,
+    "n_events": 0
+  }
+]
